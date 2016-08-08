@@ -1,3 +1,4 @@
+from __future__ import print_function
 import theano
 from training.train import TrainModel
 from lasagne_extensions.nonlinearities import rectify

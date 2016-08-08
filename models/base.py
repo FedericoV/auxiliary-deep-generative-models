@@ -1,4 +1,8 @@
-import cPickle as pkl
+from __future__ import print_function
+try:
+    import cPickle as pkl
+except ImportError:
+    import pickle as pkl
 import lasagne
 import numpy as np
 import theano
@@ -53,7 +57,7 @@ class Model(object):
         :param update: The update function (optimization framework) used for training (cf. updates.py), e.g. sgd.
         :param update_args: The args for the update function applied to training, e.g. (0.001,).
         """
-        print "### BUILDING MODEL ###"
+        print("### BUILDING MODEL ###")
 
         self.train_args = {}
         self.train_args['inputs'] = OrderedDict({})
@@ -109,7 +113,7 @@ class Model(object):
             init_param = self.model_params[i]
             loaded_param = model_params[i]
             if not loaded_param.shape == tuple(init_param.shape.eval()):
-                print "Model could not be loaded, since parameters are not aligned."
+                print("Model could not be loaded, since parameters are not aligned.")
             self.model_params[i].set_value(np.asarray(model_params[i], dtype=theano.config.floatX), borrow=True)
 
     def get_output(self, x):

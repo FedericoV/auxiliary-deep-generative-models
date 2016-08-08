@@ -60,13 +60,13 @@ def create_semi_supervised(xy, n_labeled, rng):
 
     if n_labeled % n_classes != 0:
         raise "n_labeled (wished number of labeled samples) not divisible by n_classes (number of classes)"
-    n_labels_per_class = n_labeled / n_classes
+    n_labels_per_class = int(n_labeled / n_classes)
     x_labeled = [0] * n_classes
     x_unlabeled = [0] * n_classes
     y_labeled = [0] * n_classes
     y_unlabeled = [0] * n_classes
     for i in range(n_classes):
-        idx = range(x[i].shape[1])
+        idx = list(range(x[i].shape[1]))
         rng.shuffle(idx)
         x_labeled[i] = x[i][:, idx[:n_labels_per_class]]
         y_labeled[i] = y[i][:, idx[:n_labels_per_class]]

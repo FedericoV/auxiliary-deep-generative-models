@@ -1,7 +1,12 @@
 import numpy as np
 from utils import env_paths as paths
-from base import Train
+from .base import Train
 import time
+
+try:
+    xrange(5)
+except NameError:
+    xrange = range
 
 
 class TrainModel(Train):
@@ -30,6 +35,7 @@ class TrainModel(Train):
         if self.custom_eval_func is not None:
             self.custom_eval_func(self.model, paths.get_custom_eval_path(0, self.model.root_path))
 
+        n_train_batches = int(n_train_batches)
         done_looping = False
         epoch = 0
         while (epoch < n_epochs) and (not done_looping):
