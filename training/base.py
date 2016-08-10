@@ -66,14 +66,17 @@ class Train(object):
 
         plt.clf()
         plt.subplot(211)
-        idx = np.array(eval_dict.values()[0]).shape[0]
-        x = np.array(eval_dict.values())
-        for i in range(idx):
-            plot(eval_dict.keys(), x[:, i], False, labels[i])
+
+        keys, values = zip(*sorted(eval_dict.items(), lambda x: x[0]))
+        x = np.array(values)
+        for i in range(x.shape[1]):
+            plot(keys, x[:, i], False, labels[i])
         plt.legend()
         plt.subplot(212)
-        for i in range(idx):
-            plot(eval_dict.keys()[-int(len(x) * 0.25):], x[-int(len(x) * 0.25):][:, i], True, labels[i])
+
+        for i in range(x.shape[1]):
+            plot(keys[-int(len(x) * 0.25):], x[-int(len(x) * 0.25):][:, i],
+                 True, labels[i])
         plt.xlabel('Epochs')
         plt.savefig(paths.get_plot_evaluation_path_for_model(self.model.get_root_path(), path_extension+".png"))
 
